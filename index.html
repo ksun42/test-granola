@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Granola · Регламент шеринга</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f13; --surface: #16181f; --surface2: #1e2029;
+    --border: #2a2d38; --border2: #353847;
+    --text: #e8eaf0; --muted: #6b7280; --muted2: #9ca3af;
+    --blue: #4f8ef7; --blue-glow: rgba(79,142,247,0.15);
+    --green: #34d399; --green-dim: #0d3d2a;
+    --amber: #fbbf24; --red: #f87171; --red-dim: #3d1212;
+    --purple: #a78bfa; --teal: #2dd4bf; --pink: #f472b6;
+    --sc: #1a3a5c; --sp: #0d3d2a; --spr: #2a1f3a; --ssh: #1f2d3a; --spe: #2a2d38;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.6; min-height: 100vh; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(14,15,19,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; gap: 24px; height: 52px; }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; color: var(--blue); letter-spacing: -0.5px; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 2px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 12px; color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: 6px; white-space: nowrap; transition: all 0.15s; }
+  .nav-link:hover { color: var(--text); background: var(--surface2); }
+  .nav-link.active { color: var(--blue); background: var(--blue-glow); }
+
+  .hero { padding: 64px 48px 48px; max-width: 1340px; margin: 0 auto; }
+  .hero-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(36px,5vw,64px); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; }
+  .hero h1 span { color: var(--blue); }
+  .hero-sub { color: var(--muted2); font-size: 15px; max-width: 580px; line-height: 1.7; }
+
+  .main { max-width: 1340px; margin: 0 auto; padding: 0 48px 80px; }
+  .section { margin-bottom: 64px; }
+  .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--blue); opacity: 0.5; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .section-desc { color: var(--muted2); margin-bottom: 24px; font-size: 14px; line-height: 1.7; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; min-width: 820px; }
+  thead th { background: var(--surface2); padding: 10px 14px; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-align: left; white-space: nowrap; border-bottom: 1px solid var(--border); }
+  thead th:last-child { color: var(--amber); }
+  .group-row td { padding: 7px 14px; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border-top: 2px solid var(--border2); }
+  .gc td { background: var(--sc); color: #7eb8f7; }
+  .gp td { background: var(--sp); color: var(--teal); }
+  .gpr td { background: var(--spr); color: var(--purple); }
+  .gs td { background: var(--ssh); color: var(--pink); }
+  .gpe td { background: var(--spe); color: var(--muted2); }
+  tbody tr.dr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr.dr:hover { background: rgba(255,255,255,0.025); }
+  tbody tr.dr:last-child { border-bottom: none; }
+  td { padding: 11px 14px; vertical-align: top; font-size: 13px; }
+  td.fn { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 12.5px; white-space: nowrap; color: var(--text); }
+  td.fn .fn-sub { font-family: 'DM Sans', sans-serif; font-weight: 400; font-size: 11px; color: var(--muted); margin-top: 3px; white-space: normal; line-height: 1.4; }
+  td.cc { color: var(--muted2); font-size: 12.5px; line-height: 1.6; min-width: 180px; }
+  .cl { display: block; }
+  .cl+.cl { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--border); }
+  .te { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 5px; border-radius: 3px; margin-right: 4px; background: rgba(79,142,247,0.15); color: var(--blue); }
+  .ti { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 5px; border-radius: 3px; margin-right: 4px; background: rgba(52,211,153,0.12); color: var(--green); }
+  td.oc { color: var(--muted2); font-size: 12.5px; white-space: nowrap; }
+  td.sc { font-family: 'DM Mono','Fira Code',monospace; font-size: 11.5px; color: var(--purple); }
+
+  /* QUESTIONS */
+  td.qc { min-width: 180px; max-width: 260px; padding: 9px 11px; }
+  .qblock { position: relative; }
+  .qdisplay { color: var(--amber); font-size: 12px; font-style: italic; line-height: 1.5; cursor: pointer; border-radius: 6px; padding: 5px 7px; border: 1px solid transparent; transition: all 0.15s; min-height: 30px; }
+  .qdisplay:hover { border-color: var(--border2); background: rgba(251,191,36,0.05); }
+  .qdisplay.empty { color: var(--border2); font-style: normal; font-size: 11.5px; }
+  .qdisplay.empty:hover { color: var(--muted); border-color: var(--border2); background: var(--surface2); }
+  .qdisplay.resolved { color: var(--green); font-style: normal; opacity: 0.65; text-decoration: line-through; }
+  .qeditor { display: none; flex-direction: column; gap: 6px; }
+  .qeditor.active { display: flex; }
+  .qtextarea { width: 100%; background: var(--surface2); border: 1px solid var(--blue); border-radius: 6px; color: var(--text); font-family: 'DM Sans',sans-serif; font-size: 12.5px; padding: 7px 9px; resize: vertical; min-height: 68px; outline: none; line-height: 1.5; box-shadow: 0 0 0 3px var(--blue-glow); }
+  .qactions { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+  .qbtn { font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 4px; border: none; cursor: pointer; transition: all 0.15s; }
+  .qbs { background: var(--blue); color: #fff; }
+  .qbs:hover { background: #6ba3f9; }
+  .qbr { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
+  .qbr:hover { background: rgba(52,211,153,0.25); }
+  .qbc { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .qbc:hover { color: var(--text); }
+  .qbx { background: transparent; color: var(--red); border: 1px solid rgba(248,113,113,0.2); margin-left: auto; }
+  .qbx:hover { background: rgba(248,113,113,0.1); }
+
+  .footnote { margin-top: 14px; padding: 11px 15px; border-left: 3px solid var(--amber); background: rgba(251,191,36,0.06); border-radius: 0 8px 8px 0; font-size: 13px; color: var(--muted2); line-height: 1.6; }
+  .footnote strong { color: var(--amber); }
+
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:700px){.rules-grid{grid-template-columns:1fr;}}
+  .rcard { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .rcard-title { font-family: 'Syne',sans-serif; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .rlist { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .rlist li { font-size: 13px; color: var(--muted2); padding-left: 15px; position: relative; line-height: 1.5; }
+  .rlist li::before { content:'→'; position: absolute; left:0; color: var(--blue); font-size: 11px; top: 2px; }
+  .rlist li strong { color: var(--text); }
+
+  .callout { border-radius: 10px; padding: 13px 16px; margin: 14px 0; font-size: 13px; line-height: 1.6; display: flex; gap: 11px; align-items: flex-start; }
+  .ci { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+  .callout.blue { background: var(--blue-glow); border: 1px solid rgba(79,142,247,0.2); color: var(--muted2); }
+  .callout.green { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); color: var(--muted2); }
+  .callout.amber { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); color: var(--muted2); }
+  .callout strong { color: var(--text); }
+
+  .flow { display: flex; margin: 18px 0; flex-wrap: wrap; }
+  .fstep { flex: 1; min-width: 130px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; }
+  .fnum { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:var(--blue); letter-spacing:1px; text-transform:uppercase; margin-bottom:5px; }
+  .ftxt { font-size: 12.5px; color: var(--muted2); line-height: 1.5; }
+  .farrow { display: flex; align-items: center; padding: 0 7px; color: var(--border2); font-size: 17px; flex-shrink: 0; }
+
+  .yesno { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+  @media(max-width:600px){.yesno{grid-template-columns:1fr;}}
+  .yc { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .yh { padding: 9px 15px; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.5px; }
+  .yh.no { background: var(--red-dim); color: var(--red); }
+  .yh.yes { background: var(--green-dim); color: var(--green); }
+  .yi { padding: 8px 15px; font-size: 13px; color: var(--muted2); border-top: 1px solid var(--border); line-height: 1.4; }
+  .yi.sp { color: var(--amber); }
+
+  .slack-msg { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: 0 10px 10px 0; padding: 15px 19px; font-family:'DM Mono','Fira Code',monospace; font-size: 12.5px; color: var(--muted2); line-height: 1.8; }
+  .sl { color: var(--blue); }
+
+  /* ROLLOUT */
+  .rollout-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 14px; }
+  .rphase { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .rphase-hdr { padding: 13px 17px 11px; border-bottom: 1px solid var(--border); }
+  .rbadge { display: inline-block; font-family:'Syne',sans-serif; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:2px 7px; border-radius:4px; margin-bottom:7px; }
+  .b0 { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+  .b1 { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+  .b2 { background: rgba(79,142,247,0.15); color: var(--blue); border: 1px solid rgba(79,142,247,0.3); }
+  .b3 { background: rgba(167,139,250,0.15); color: var(--purple); border: 1px solid rgba(167,139,250,0.3); }
+  .rphase-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:var(--text); }
+  .rphase-sub { font-size:12px; color:var(--muted); margin-top:3px; }
+  .rphase-body { padding: 12px 17px; }
+  .rdept { display: flex; align-items: flex-start; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .rdept:last-child { border-bottom: none; padding-bottom: 0; }
+  .rdept-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
+  .rdept-name { font-size:13px; font-weight:500; color:var(--text); line-height:1.3; }
+  .rdept-note { font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4; }
+  .rfeedback { background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 16px 20px; margin-top: 18px; display: flex; gap: 13px; align-items: flex-start; }
+  .rfi { font-size:20px; flex-shrink:0; }
+  .rft { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .rftxt { font-size:13px; color:var(--muted2); line-height:1.65; }
+  .rftxt strong { color: var(--amber); }
+
+  .summary-bar { position:fixed; bottom:20px; right:24px; background:var(--surface2); border:1px solid var(--border2); border-radius:10px; padding:9px 15px; font-size:12px; color:var(--muted); display:flex; align-items:center; gap:9px; box-shadow:0 8px 32px rgba(0,0,0,0.4); z-index:50; }
+  .summary-bar .sq { color:var(--amber); font-weight:600; }
+  .summary-bar .sr { color:var(--green); font-weight:600; }
+  .sdot { width:6px; height:6px; border-radius:50%; background:var(--border2); flex-shrink:0; }
+
+  code { font-family:'DM Mono','Fira Code',monospace; font-size:12px; background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:1px 5px; color:var(--purple); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Granola</div>
+  <div class="nav-links">
+    <a class="nav-link active" href="#structure">Папки</a>
+    <a class="nav-link" href="#rules">Правила</a>
+    <a class="nav-link" href="#slack">Slack</a>
+    <a class="nav-link" href="#clickup">ClickUp</a>
+    <a class="nav-link" href="#noShare">Не шарим</a>
+    <a class="nav-link" href="#rollout">Роллаут</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Внутренний документ · v1.2</div>
+  <h1>Granola<br><span>шеринг</span></h1>
+  <p class="hero-sub">Что, куда и кто шарит в Granola — чтобы контекст не терялся между клиентами, площадками и командой.<br><br>
+  Колонка <strong style="color:var(--amber)">❓ На обсудить</strong> — редактируемая. Кликни на поле, чтобы добавить вопрос, пометить решённым или очистить.</p>
+</div>
+
+<div class="main">
+
+  <!-- 01 СТРУКТУРА ПАПОК -->
+  <section class="section" id="structure">
+    <div class="section-header"><span class="section-num">01</span><span class="section-title">Структура папок</span></div>
+    <p class="section-desc">У каждого участника одинаковый набор папок в Granola. Вертикали и площадки разделены на внешние встречи (с клиентом / площадкой) и внутренние синки команды.</p>
+    <div class="table-wrap">
+      <table><thead><tr>
+        <th>Папка</th><th>Что туда идёт</th><th>Кто шарит</th><th>→ Slack</th><th>❓ На обсудить</th>
+      </tr></thead>
+      <tbody id="table-body"></tbody></table>
+    </div>
+    <div class="footnote"><strong>* Сделки и переговоры о новых клиентах</strong> — не идут в общие папки вертикалей. Только по отдельной договорённости с руководителем.</div>
+  </section>
+
+  <!-- 02 ПРАВИЛА -->
+  <section class="section" id="rules">
+    <div class="section-header"><span class="section-num">02</span><span class="section-title">Правила шеринга</span></div>
+    <div class="rules-grid">
+      <div class="rcard">
+        <div class="rcard-title"><div class="dot" style="background:var(--blue)"></div>Кто шарит</div>
+        <ul class="rlist">
+          <li><strong>Клиентская встреча</strong> (внешняя или внутренняя) → АМ / лид вертикали</li>
+          <li><strong>Площадочная встреча</strong> → platform specialist</li>
+          <li><strong>Внутренняя / проектная</strong> → организатор встречи</li>
+          <li><strong>Несколько участников</strong> → шарит инициатор созвона</li>
+        </ul>
+      </div>
+      <div class="rcard">
+        <div class="rcard-title"><div class="dot" style="background:var(--green)"></div>Когда шарить</div>
+        <div class="callout green" style="margin-top:0;margin-bottom:11px;">
+          <div class="ci">⏱</div><div><strong>Правило 24 часов</strong> — встреча зашарена в течение суток. Позже — контекст теряется, ClickUp-задачи зависают.</div>
+        </div>
+        <ul class="rlist">
+          <li>Нужно доработать саммари (QBR, стратегия) → <strong>до 48 часов</strong></li>
+          <li>NDA-чувствительные данные → <strong>согласовать с руководителем</strong></li>
+        </ul>
+      </div>
+      <div class="rcard" style="grid-column:1/-1">
+        <div class="rcard-title"><div class="dot" style="background:var(--amber)"></div>Что должно быть в саммари Granola</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;">
+          <div style="background:var(--surface2);border-radius:8px;padding:11px 13px;"><div style="font-size:10px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Контекст</div><div style="font-size:12.5px;color:var(--muted2);">1 строка: зачем собрались</div></div>
+          <div style="background:var(--surface2);border-radius:8px;padding:11px 13px;"><div style="font-size:10px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Решения</div><div style="font-size:12.5px;color:var(--muted2);">Ключевые договорённости — если были</div></div>
+          <div style="background:var(--surface2);border-radius:8px;padding:11px 13px;"><div style="font-size:10px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Action items</div><div style="font-size:12.5px;color:var(--muted2);">С именами ответственных</div></div>
+          <div style="background:var(--surface2);border-radius:8px;padding:11px 13px;"><div style="font-size:10px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Следующий шаг</div><div style="font-size:12.5px;color:var(--muted2);">Дата следующей встречи — если договорились</div></div>
+        </div>
+        <div class="callout amber" style="margin-bottom:0;margin-top:12px;"><div class="ci">✏️</div><div>Granola делает черновик автоматически — только убедиться, что action items не потерялись и <strong>имена проставлены</strong>.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 SLACK -->
+  <section class="section" id="slack">
+    <div class="section-header"><span class="section-num">03</span><span class="section-title">Связка с Slack</span></div>
+    <p class="section-desc">После шаринга встречи в Granola — кинуть резюме в нужный канал. Шаблон:</p>
+    <div class="slack-msg">
+      <span class="sl">📋</span>  [Название встречи] · [Дата]<br>
+      Ключевые решения: ...<br>
+      Action items:<br>
+      &nbsp;&nbsp;<span class="sl">→</span> Имя — задача (срок)<br>
+      <span class="sl">🔗</span>  Granola: [link]
+    </div>
+    <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;">
+      <div style="background:var(--surface);border:1px solid var(--sc);border-radius:8px;padding:10px 13px;"><div style="font-size:10px;font-weight:700;color:#7eb8f7;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Клиентские вертикали</div><div style="font-size:11.5px;color:var(--muted2);line-height:1.9;"><code>#all-gaming-clients</code><br><code>#all-igaming-clients</code><br><code>#all-entertainment-clients</code><br><code>#all-fintech-clients</code><br><code>#all-dating-clients</code><br><code>#all-e-com-clients</code><br><code>#all-services-clients</code><br><code>#all-health-fitness-clients</code></div></div>
+      <div style="background:var(--surface);border:1px solid var(--sp);border-radius:8px;padding:10px 13px;"><div style="font-size:10px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Площадки</div><div style="font-size:11.5px;color:var(--muted2);line-height:1.9;"><code>#platform-google</code><br><code>#platform-dv</code><br><code>#platform-tiktok</code><br><code>#platform-snap</code><br><code>#platform-amazon</code></div></div>
+      <div style="background:var(--surface);border:1px solid var(--spr);border-radius:8px;padding:10px 13px;"><div style="font-size:10px;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Проекты</div><div style="font-size:11.5px;color:var(--muted2);line-height:1.9;"><code>#project-creativelab</code><br><code>#project-alltech</code><br><code>#project-[name]</code></div></div>
+      <div style="background:var(--surface);border:1px solid var(--ssh);border-radius:8px;padding:10px 13px;"><div style="font-size:10px;font-weight:700;color:var(--pink);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Общие пространства</div><div style="font-size:11.5px;color:var(--muted2);line-height:1.9;"><code>#youin</code><br><code>#sharing-sessions</code><br><code>#ai-enthusiast</code><br><code>#general</code></div></div>
+    </div>
+    <!-- Editable Slack question -->
+    <div style="margin-top:16px;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+      <div style="font-size:18px;flex-shrink:0;">❓</div>
+      <div style="flex:1;">
+        <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">На обсудить — Slack-шеринг</div>
+        <div id="slack-q-display" class="qdisplay" style="font-size:13px;font-style:italic;color:var(--amber);cursor:pointer;border-radius:6px;padding:4px 6px;border:1px solid transparent;transition:all 0.15s;"></div>
+        <div id="slack-q-editor" class="qeditor">
+          <textarea id="slack-q-textarea" class="qtextarea" rows="3" placeholder="Добавить вопрос..."></textarea>
+          <div class="qactions">
+            <button class="qbtn qbs" onclick="slackQSave()">Сохранить</button>
+            <button class="qbtn qbr" onclick="slackQResolve()">✓ Решено</button>
+            <button class="qbtn qbc" onclick="slackQClose()">Отмена</button>
+            <button class="qbtn qbx" onclick="slackQClear()">✕</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote" style="margin-top:12px;">Шарить ли резюме встречи в Slack — <strong>под вопросом</strong>: постоянный импорт всех встреч может замусорить каналы. Возможно, имеет смысл шарить только встречи с решениями или action items, а не все подряд.</div>
+  </section>
+
+  <!-- 04 CLICKUP -->
+  <section class="section" id="clickup">
+    <div class="section-header"><span class="section-num">04</span><span class="section-title">Связка с ClickUp</span></div>
+    <p class="section-desc">Action items из Granola → задачи в ClickUp. Алгоритм после встречи:</p>
+    <div class="flow">
+      <div class="fstep"><div class="fnum">Шаг 01</div><div class="ftxt">Проверить action items в саммари Granola</div></div>
+      <div class="farrow">›</div>
+      <div class="fstep"><div class="fnum">Шаг 02</div><div class="ftxt">Каждый action item = задача в ClickUp с дедлайном и ответственным</div></div>
+      <div class="farrow">›</div>
+      <div class="fstep"><div class="fnum">Шаг 03</div><div class="ftxt">В описание задачи вставить ссылку на встречу в Granola</div></div>
+      <div class="farrow">›</div>
+      <div class="fstep"><div class="fnum">Шаг 04</div><div class="ftxt">Зашарить встречу в Granola + кинуть резюме в Slack</div></div>
+    </div>
+    <div class="callout amber"><div class="ci">⚠️</div><div>Задача у нескольких людей — один таск с несколькими ответственными, <strong>не дублировать</strong>.</div></div>
+    <div class="footnote" style="margin-top:12px;"><strong>Сейчас — ручной процесс.</strong> В перспективе возможна более продвинутая интеграция через Claude: автоматическая генерация задач из саммари Granola, привязка к нужному спейсу в ClickUp и нотификация ответственных. Пока — копируем руками.</div>
+  </section>
+
+  <!-- 05 НЕ ШАРИМ -->
+  <section class="section" id="noShare">
+    <div class="section-header"><span class="section-num">05</span><span class="section-title">Что не шарим</span></div>
+    <div class="yesno">
+      <div class="yc"><div class="yh no">❌  Не шарить</div>
+        <div class="yi">1-1 с руководителем</div>
+        <div class="yi sp">Встречи по сделкам и переговорам о новых клиентах *</div>
+        <div class="yi">Встречи с NDA-материалами без согласования</div>
+        <div class="yi">Личные звонки и собеседования</div>
+        <div class="yi">Рекрутинговые встречи</div>
+      </div>
+      <div class="yc"><div class="yh yes">✅  Шарить</div>
+        <div class="yi">Все встречи по клиентам (внешние и внутренние)</div>
+        <div class="yi">Площадочные встречи (внешние и внутренние)</div>
+        <div class="yi">Внутренние синки с решениями и action items</div>
+        <div class="yi">QBR и стратегические встречи с площадками</div>
+        <div class="yi">Кросс-функциональные проектные встречи</div>
+      </div>
+    </div>
+    <div class="footnote" style="margin-top:14px;"><strong>*</strong> Встречи по сделкам и новым клиентам — отдельная договорённость с руководителем, в общие папки вертикалей не идут.</div>
+  </section>
+
+  <!-- 06 РОЛЛАУТ -->
+  <section class="section" id="rollout">
+    <div class="section-header"><span class="section-num">06</span><span class="section-title">Этапы внедрения</span></div>
+    <p class="section-desc">Granola внедряется по типам папок — от самых понятных к тем, где нужно сначала договориться о структуре.</p>
+
+    <div class="rollout-grid">
+
+      <div class="rphase">
+        <div class="rphase-hdr">
+          <div class="rbadge b0">База · Этап 0</div>
+          <div class="rphase-title">Общие пространства</div>
+          <div class="rphase-sub">Youin, Sharing Sessions, AI-Enthusiast, синки отделов</div>
+        </div>
+        <div class="rphase-body">
+          <div class="rdept"><div class="rdept-icon">🌱</div><div><div class="rdept-name">Youin</div><div class="rdept-note">Онбординг, культурные встречи, HR-инициативы</div></div></div>
+          <div class="rdept"><div class="rdept-icon">🎤</div><div><div class="rdept-name">Sharing Sessions</div><div class="rdept-note">Публичные знания, внутренние митапы, демо</div></div></div>
+          <div class="rdept"><div class="rdept-icon">🤖</div><div><div class="rdept-name">AI-Enthusiast</div><div class="rdept-note">Эксперименты, инструменты, обсуждения</div></div></div>
+          <div class="rdept"><div class="rdept-icon">🏠</div><div><div class="rdept-name">All-hands, ретро, внутренние синки</div><div class="rdept-note">Общекомандные встречи с решениями и action items</div></div></div>
+        </div>
+      </div>
+
+      <div class="rphase">
+        <div class="rphase-hdr">
+          <div class="rbadge b1">Сейчас · Этап 1</div>
+          <div class="rphase-title">Клиентские папки</div>
+          <div class="rphase-sub">Папки по вертикалям — внешние встречи + внутренние синки</div>
+        </div>
+        <div class="rphase-body">
+          <div class="rdept"><div class="rdept-icon">🎯</div><div><div class="rdept-name">Папки по вертикалям</div><div class="rdept-note">Gaming, iGaming, Entertainment, Fintech, Dating, E-com, Services, Health — у каждого АМ / лида</div></div></div>
+          <div class="rdept"><div class="rdept-icon">📋</div><div><div class="rdept-name">Структура встречи</div><div class="rdept-note">Внешние (с клиентом) и внутренние синки команды — в одной папке</div></div></div>
+          <div class="rdept"><div class="rdept-icon">❓</div><div><div class="rdept-name">Открытый вопрос</div><div class="rdept-note">Нужны ли подпапки external / internal или одна папка — достаточно?</div></div></div>
+        </div>
+      </div>
+
+      <div class="rphase">
+        <div class="rphase-hdr">
+          <div class="rbadge b1">Сейчас · Этап 1</div>
+          <div class="rphase-title">Площадочные папки</div>
+          <div class="rphase-sub">Google Ads, DV360, TikTok, Snap, Amazon</div>
+        </div>
+        <div class="rphase-body">
+          <div class="rdept"><div class="rdept-icon">📡</div><div><div class="rdept-name">Папки по площадкам</div><div class="rdept-note">Отдельная папка на каждую площадку у platform specialist</div></div></div>
+          <div class="rdept"><div class="rdept-icon">📋</div><div><div class="rdept-name">Структура встречи</div><div class="rdept-note">Внешние (с командой площадки) и внутренние синки — в одной папке</div></div></div>
+          <div class="rdept"><div class="rdept-icon">❓</div><div><div class="rdept-name">Открытый вопрос</div><div class="rdept-note">Нужны ли подпапки external / internal или достаточно одной?</div></div></div>
+        </div>
+      </div>
+
+      <div class="rphase">
+        <div class="rphase-hdr">
+          <div class="rbadge b2">Следующий · Этап 2</div>
+          <div class="rphase-title">Смежные отделы</div>
+          <div class="rphase-sub">После фидбека от Этапа 1</div>
+        </div>
+        <div class="rphase-body">
+          <div class="rdept"><div class="rdept-icon">🎨</div><div><div class="rdept-name">Creative Lab</div><div class="rdept-note">Нужно решить: внешние подрядчики, клиентские встречи — своя папка или на уровне вертикали?</div></div></div>
+          <div class="rdept"><div class="rdept-icon">🤖</div><div><div class="rdept-name">AllTech</div><div class="rdept-note">Нужно решить: внешние встречи и внутренние обучения — одна папка или две?</div></div></div>
+          <div class="rdept"><div class="rdept-icon">📊</div><div><div class="rdept-name">Analytics / BI</div><div class="rdept-note">Нужно подумать, как лучше организовать: по клиентам, по типу встречи или общая папка?</div></div></div>
+          <div class="rdept"><div class="rdept-icon">➕</div><div><div class="rdept-name">etc.</div><div class="rdept-note">Остальные смежные отделы — структура обсуждается по мере подключения</div></div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="rfeedback">
+      <div class="rfi">💬</div>
+      <div>
+        <div class="rft">Фидбек и допил</div>
+        <div class="rftxt">
+          После нескольких недель работы с первыми папками — синк по открытым вопросам из колонки «На обсудить».<br>
+          Основные развилки касаются <strong>структуры внутри папок</strong> (нужны ли подпапки external/internal) и <strong>принципа организации</strong> для смежных отделов.<br>
+          По итогам обсуждения — обновляем этот документ и разворачиваем следующий этап.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p style="color:var(--muted);font-size:12px;text-align:center;padding-top:20px;">Вопросы — в #general или к своему лиду. Документ живой — если что-то не работает, обновим.</p>
+</div>
+
+<div class="summary-bar">
+  <div class="sdot"></div>
+  <span>Открыто: <span class="sq" id="open-count">0</span></span>
+  <div class="sdot"></div>
+  <span>Решено: <span class="sr" id="resolved-count">0</span></span>
+</div>
+
+<script>
+const STORAGE_KEY = 'granola_questions_v4';
+
+const tableData = [
+  { group:'personal', label:'🔒 Личное', sub:'', ext:null, int:'1-1 с руководителем, персональные созвоны', owner:'Никто', slack:'—', q:'—', id:'personal' },
+
+  { group:'clients', label:'🎯 Клиентские вертикали', sub:'Gaming / iGaming / Entertainment / Fintech / Dating / E-com / Services / Health', ext:'Созвоны с клиентом, брифы, стратегические сессии', int:'Синки команды по вертикали, внутренние разборы', owner:'АМ / лид вертикали', slack:'#all-[vertical]-clients', q:'Ок ли держать internal и external в одной папке, или нужны подпапки?', id:'clients' },
+
+  { group:'platforms', label:'📡 Площадки', sub:'Google Ads / DV360 / TikTok / Snap / Amazon', ext:'QBR, брифинги, бета-тесты, партнёрские звонки с командой площадки', int:'Синки platform-team, внутренние обучения по площадке', owner:'Platform specialist', slack:'#platform-[name]', q:'Ок ли держать внешние встречи с площадкой и внутренние синки команды в одной папке? Или нужны подпапки external / internal?', id:'platforms' },
+
+  { group:'projects', label:'🎨 Creative Lab', sub:'', ext:'Встречи с клиентами по креативу', int:'Внутренние синки, воркшопы, продакшн', owner:'Лид Creative Lab', slack:'#project-creativelab', q:'Что делать с внешними подрядчиками — шарить в папку Creative Lab или на уровне клиентской вертикали? Клиентские встречи логично держать в папке клиента.', id:'creativelab' },
+  { group:'projects', label:'🤖 AllTech', sub:'', ext:'Внешние встречи по продуктам / партнёрам', int:'Внутренние обучения, технические синки', owner:'Лид AllTech', slack:'#project-alltech', q:'Внешние встречи и внутренние обучения — одна папка или две?', id:'alltech' },
+  { group:'projects', label:'📊 Analytics / BI', sub:'', ext:'Синки с клиентами по отчётам', int:'Методологические встречи, внутренние разборы', owner:'Лид аналитики', slack:'#analytics', q:'Как лучше организовать — по клиентам, по типу встречи или общая папка?', id:'analytics' },
+  { group:'projects', label:'📁 Проекты', sub:'Кросс-функциональные инициативы', ext:null, int:'Запуск продукта, аудит, пайплайны, кросс-командные встречи', owner:'Организатор', slack:'#project-[name]', q:'', id:'projects' },
+
+  { group:'shared', label:'🌱 Youin', sub:'', ext:null, int:'Онбординг, культурные встречи, HR-инициативы', owner:'Организатор', slack:'#youin', q:'', id:'youin' },
+  { group:'shared', label:'🎤 Sharing Sessions', sub:'', ext:null, int:'Публичные знания, внутренние митапы, демо', owner:'Организатор', slack:'#sharing-sessions', q:'', id:'sharing' },
+  { group:'shared', label:'🤖 AI-Enthusiast', sub:'', ext:null, int:'Обсуждения AI-инструментов, эксперименты', owner:'Организатор', slack:'#ai-enthusiast', q:'', id:'ai' },
+  { group:'shared', label:'🏠 Внутренние', sub:'', ext:null, int:'All-hands, ретро, общекомандные синки', owner:'Организатор', slack:'#general / #team-[dept]', q:'', id:'internal' },
+];
+
+const groupMeta = {
+  personal:  { label:'🔒  Личное',               cls:'gpe' },
+  clients:   { label:'🎯  Клиентские вертикали', cls:'gc'  },
+  platforms: { label:'📡  Площадки',             cls:'gp'  },
+  projects:  { label:'📁  Проекты и смежные',    cls:'gpr' },
+  shared:    { label:'🌐  Общие пространства',   cls:'gs'  },
+};
+
+let questions = {}, resolved = {};
+const SLACK_Q_KEY = 'slack_q', SLACK_R_KEY = 'slack_r';
+
+function loadState() {
+  try { const s=localStorage.getItem(STORAGE_KEY); if(s){const p=JSON.parse(s);questions=p.questions||{};resolved=p.resolved||{};} }catch(e){}
+  tableData.forEach(r=>{ if(!(r.id in questions))questions[r.id]=r.q; if(!(r.id in resolved))resolved[r.id]=false; });
+  // Slack question
+  if(!(SLACK_Q_KEY in questions)) questions[SLACK_Q_KEY]='Стоит ли шарить резюме всех встреч в Slack-каналы, или только те, где есть action items? Не замусорит ли каналы?';
+  if(!(SLACK_R_KEY in resolved)) resolved[SLACK_R_KEY]=false;
+}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({questions,resolved}));}catch(e){}}
+function updateSummary(){
+  let open=0,res=0;
+  const allIds=[...tableData.map(r=>r.id),SLACK_Q_KEY];
+  allIds.forEach(id=>{ const q=questions[id]||''; if(q&&q!=='—'){ resolved[id]?res++:open++; } });
+  document.getElementById('open-count').textContent=open;
+  document.getElementById('resolved-count').textContent=res;
+}
+
+// Slack question block (standalone)
+function initSlackQ(){
+  const disp=document.getElementById('slack-q-display');
+  const editor=document.getElementById('slack-q-editor');
+  const ta=document.getElementById('slack-q-textarea');
+  function refresh(){
+    const q=questions[SLACK_Q_KEY]||'', isRes=resolved[SLACK_Q_KEY];
+    if(!q||q==='—'){ disp.className='qdisplay empty'; disp.textContent='+ Добавить вопрос'; }
+    else if(isRes){ disp.className='qdisplay resolved'; disp.textContent='✓ '+q; }
+    else{ disp.className='qdisplay'; disp.textContent=q; }
+    updateSummary();
+  }
+  function open(){ ta.value=(questions[SLACK_Q_KEY]==='—'?'':questions[SLACK_Q_KEY])||''; disp.style.display='none'; editor.classList.add('active'); ta.focus(); }
+  function close(){ editor.classList.remove('active'); disp.style.display=''; refresh(); }
+  disp.addEventListener('click', open);
+  window.slackQSave=()=>{ questions[SLACK_Q_KEY]=ta.value.trim(); resolved[SLACK_Q_KEY]=false; saveState(); close(); };
+  window.slackQResolve=()=>{ questions[SLACK_Q_KEY]=ta.value.trim()||questions[SLACK_Q_KEY]||''; resolved[SLACK_Q_KEY]=true; saveState(); close(); };
+  window.slackQClose=close;
+  window.slackQClear=()=>{ questions[SLACK_Q_KEY]=''; resolved[SLACK_Q_KEY]=false; saveState(); close(); };
+  ta.addEventListener('keydown',e=>{ if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){questions[SLACK_Q_KEY]=ta.value.trim();resolved[SLACK_Q_KEY]=false;saveState();close();} if(e.key==='Escape')close(); });
+  refresh();
+}
+
+function renderTable(){
+  const tbody=document.getElementById('table-body');
+  tbody.innerHTML='';
+  let lastGroup=null;
+  tableData.forEach(row=>{
+    if(row.group!==lastGroup){
+      lastGroup=row.group;
+      const meta=groupMeta[row.group];
+      const gr=document.createElement('tr'); gr.className=`group-row ${meta.cls}`;
+      const td=document.createElement('td'); td.colSpan=5; td.textContent=meta.label;
+      gr.appendChild(td); tbody.appendChild(gr);
+    }
+    const tr=document.createElement('tr'); tr.className='dr';
+
+    // Folder name
+    const td1=document.createElement('td'); td1.className='fn';
+    td1.innerHTML=row.label+(row.sub?`<div class="fn-sub">${row.sub}</div>`:'');
+    tr.appendChild(td1);
+
+    // Content
+    const td2=document.createElement('td'); td2.className='cc';
+    if(row.ext&&row.int) td2.innerHTML=`<span class="cl"><span class="te">внеш</span>${row.ext}</span><span class="cl"><span class="ti">внутр</span>${row.int}</span>`;
+    else td2.innerHTML=`<span class="cl">${row.int||row.ext}</span>`;
+    tr.appendChild(td2);
+
+    const td3=document.createElement('td'); td3.className='oc'; td3.textContent=row.owner; tr.appendChild(td3);
+    const td4=document.createElement('td'); td4.className='sc'; td4.textContent=row.slack; tr.appendChild(td4);
+    const td5=document.createElement('td'); td5.className='qc'; td5.appendChild(makeQBlock(row.id)); tr.appendChild(td5);
+    tbody.appendChild(tr);
+  });
+  updateSummary();
+}
+
+function mkBtn(cls,txt){const b=document.createElement('button');b.className=`qbtn ${cls}`;b.textContent=txt;return b;}
+
+function makeQBlock(id){
+  const wrap=document.createElement('div'); wrap.className='qblock';
+  const disp=document.createElement('div'); disp.className='qdisplay';
+  const editor=document.createElement('div'); editor.className='qeditor';
+  const ta=document.createElement('textarea'); ta.className='qtextarea'; ta.placeholder='Добавить вопрос...'; ta.rows=3;
+  const actions=document.createElement('div'); actions.className='qactions';
+  const bS=mkBtn('qbs','Сохранить'),bR=mkBtn('qbr','✓ Решено'),bC=mkBtn('qbc','Отмена'),bX=mkBtn('qbx','✕');
+  actions.append(bS,bR,bC,bX); editor.append(ta,actions); wrap.append(disp,editor);
+
+  function refresh(){
+    const q=questions[id]||'',isRes=resolved[id];
+    if(!q||q==='—'){disp.className='qdisplay empty';disp.textContent='+ Добавить вопрос';}
+    else if(isRes){disp.className='qdisplay resolved';disp.textContent='✓ '+q;}
+    else{disp.className='qdisplay';disp.textContent=q;}
+    updateSummary();
+  }
+  function open(){ta.value=(questions[id]==='—'?'':questions[id])||'';disp.style.display='none';editor.classList.add('active');ta.focus();}
+  function close(){editor.classList.remove('active');disp.style.display='';refresh();}
+
+  disp.addEventListener('click',open);
+  bS.addEventListener('click',()=>{questions[id]=ta.value.trim();resolved[id]=false;saveState();close();});
+  bR.addEventListener('click',()=>{questions[id]=ta.value.trim()||questions[id]||'';resolved[id]=true;saveState();close();});
+  bC.addEventListener('click',close);
+  bX.addEventListener('click',()=>{questions[id]='';resolved[id]=false;saveState();close();});
+  ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){questions[id]=ta.value.trim();resolved[id]=false;saveState();close();}if(e.key==='Escape')close();});
+
+  refresh(); return wrap;
+}
+
+function updateNav(){
+  const sections=document.querySelectorAll('section[id]'),links=document.querySelectorAll('.nav-link');
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+  links.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+cur);});
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+document.querySelectorAll('.nav-link').forEach(l=>{
+  l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});
+});
+
+loadState(); renderTable(); initSlackQ();
+</script>
+</body>
+</html>
