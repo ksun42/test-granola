@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Granola · Регламент шеринга</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f13;
+    --surface: #16181f;
+    --surface2: #1e2029;
+    --border: #2a2d38;
+    --border2: #353847;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --muted2: #9ca3af;
+    --blue: #4f8ef7;
+    --blue-dim: #1e3a6e;
+    --blue-glow: rgba(79,142,247,0.15);
+    --green: #34d399;
+    --green-dim: #0d3d2a;
+    --amber: #fbbf24;
+    --amber-dim: #3d2d00;
+    --red: #f87171;
+    --red-dim: #3d1212;
+    --purple: #a78bfa;
+    --teal: #2dd4bf;
+    --section-clients: #1a3a5c;
+    --section-platforms: #0d3d2a;
+    --section-internal: #2d1f4a;
+    --section-personal: #2a2d38;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14,15,19,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 52px;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--blue);
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .nav-link:hover { color: var(--text); background: var(--surface2); }
+  .nav-link.active { color: var(--blue); background: var(--blue-glow); }
+
+  /* LAYOUT */
+  .hero {
+    padding: 64px 48px 48px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--blue); }
+  .hero-sub {
+    color: var(--muted2);
+    font-size: 15px;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .main {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 64px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--blue);
+    opacity: 0.6;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .section-desc {
+    color: var(--muted2);
+    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* TABLE */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+  }
+  thead th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+  thead th:last-child {
+    color: var(--amber);
+  }
+
+  /* Section group rows */
+  .group-row td {
+    padding: 7px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-top: 2px solid var(--border2);
+  }
+  .group-clients td { background: var(--section-clients); color: #7eb8f7; }
+  .group-platforms td { background: var(--section-platforms); color: var(--teal); }
+  .group-internal td { background: var(--section-internal); color: var(--purple); }
+  .group-personal td { background: var(--section-personal); color: var(--muted2); }
+
+  tbody tr.data-row {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  tbody tr.data-row:hover { background: rgba(255,255,255,0.025); }
+  tbody tr.data-row:last-child { border-bottom: none; }
+
+  td {
+    padding: 12px 14px;
+    vertical-align: top;
+    font-size: 13.5px;
+    color: var(--text);
+  }
+  td.folder-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+    color: var(--text);
+  }
+  td.content-cell {
+    color: var(--muted2);
+    font-size: 13px;
+    line-height: 1.6;
+    min-width: 200px;
+  }
+  .content-line { display: block; }
+  .content-line + .content-line {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--border);
+  }
+  .tag-ext {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 5px;
+    background: rgba(79,142,247,0.15);
+    color: var(--blue);
+    flex-shrink: 0;
+  }
+  .tag-int {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 5px;
+    background: rgba(52,211,153,0.12);
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  td.owner-cell {
+    color: var(--muted2);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  td.slack-cell {
+    font-family: 'DM Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--purple);
+    white-space: nowrap;
+  }
+
+  /* QUESTIONS COLUMN */
+  td.questions-cell {
+    min-width: 200px;
+    max-width: 280px;
+    padding: 10px 12px;
+  }
+  .question-block {
+    position: relative;
+  }
+  .q-display {
+    color: var(--amber);
+    font-size: 12.5px;
+    font-style: italic;
+    line-height: 1.55;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 6px 8px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+    min-height: 32px;
+  }
+  .q-display:hover {
+    border-color: var(--border2);
+    background: rgba(251,191,36,0.05);
+  }
+  .q-display.empty {
+    color: var(--border2);
+    font-style: normal;
+    font-size: 12px;
+  }
+  .q-display.empty:hover {
+    color: var(--muted);
+    border-color: var(--border2);
+    background: var(--surface2);
+  }
+  .q-display.resolved {
+    color: var(--green);
+    font-style: normal;
+    opacity: 0.7;
+    text-decoration: line-through;
+  }
+  .q-editor {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .q-editor.active { display: flex; }
+  .q-textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--blue);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 8px 10px;
+    resize: vertical;
+    min-height: 72px;
+    outline: none;
+    line-height: 1.5;
+    box-shadow: 0 0 0 3px var(--blue-glow);
+  }
+  .q-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .q-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .q-btn-save {
+    background: var(--blue);
+    color: #fff;
+  }
+  .q-btn-save:hover { background: #6ba3f9; }
+  .q-btn-resolve {
+    background: rgba(52,211,153,0.15);
+    color: var(--green);
+    border: 1px solid rgba(52,211,153,0.25);
+  }
+  .q-btn-resolve:hover { background: rgba(52,211,153,0.25); }
+  .q-btn-cancel {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .q-btn-cancel:hover { color: var(--text); }
+  .q-btn-clear {
+    background: transparent;
+    color: var(--red);
+    border: 1px solid rgba(248,113,113,0.2);
+    margin-left: auto;
+  }
+  .q-btn-clear:hover { background: rgba(248,113,113,0.1); }
+  .q-status {
+    font-size: 10px;
+    color: var(--muted);
+    padding: 0 2px;
+  }
+  .q-status.resolved-label { color: var(--green); }
+
+  /* FOOTNOTE */
+  .footnote {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--amber);
+    background: rgba(251,191,36,0.06);
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.6;
+  }
+  .footnote strong { color: var(--amber); }
+
+  /* RULES GRID */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 700px) { .rules-grid { grid-template-columns: 1fr; } }
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .rule-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rule-card-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .rule-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .rule-list li {
+    font-size: 13.5px;
+    color: var(--muted2);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.55;
+  }
+  .rule-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-size: 12px;
+  }
+  .rule-list li strong { color: var(--text); }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 13.5px;
+    line-height: 1.6;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .callout.blue { background: var(--blue-glow); border: 1px solid rgba(79,142,247,0.2); color: var(--muted2); }
+  .callout.green { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); color: var(--muted2); }
+  .callout.amber { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); color: var(--muted2); }
+  .callout strong { color: var(--text); }
+
+  /* FLOW */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 140px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .flow-step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .flow-step-text { font-size: 13px; color: var(--muted2); line-height: 1.5; }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    color: var(--border2);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* YES/NO TABLE */
+  .yesno {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  @media (max-width: 600px) { .yesno { grid-template-columns: 1fr; } }
+  .yesno-col { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .yesno-header {
+    padding: 10px 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .yesno-header.no { background: var(--red-dim); color: var(--red); }
+  .yesno-header.yes { background: var(--green-dim); color: var(--green); }
+  .yesno-item {
+    padding: 9px 16px;
+    font-size: 13px;
+    color: var(--muted2);
+    border-top: 1px solid var(--border);
+    line-height: 1.45;
+  }
+  .yesno-item.special { color: var(--amber); }
+
+  /* ONBOARD STEPS */
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    transition: border-color 0.2s;
+  }
+  .step:hover { border-color: var(--border2); }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--blue);
+    opacity: 0.4;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 24px;
+    margin-top: 2px;
+  }
+  .step-text { font-size: 14px; color: var(--muted2); line-height: 1.6; }
+  .step-text strong { color: var(--text); }
+
+  /* SLACK FORMAT */
+  .slack-msg {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    font-family: 'DM Mono', 'Fira Code', monospace;
+    font-size: 12.5px;
+    color: var(--muted2);
+    line-height: 1.8;
+  }
+  .slack-msg .sl { color: var(--blue); }
+
+  /* SUMMARY BAR */
+  .summary-bar {
+    position: fixed;
+    bottom: 20px;
+    right: 24px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    z-index: 50;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .summary-bar .sq { color: var(--amber); font-weight: 600; }
+  .summary-bar .sr { color: var(--green); font-weight: 600; }
+  .summary-bar-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* SLUG CODE */
+  code {
+    font-family: 'DM Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--purple);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Granola</div>
+  <div class="nav-links">
+    <a class="nav-link active" href="#structure">Папки</a>
+    <a class="nav-link" href="#rules">Правила</a>
+    <a class="nav-link" href="#slack">Слак</a>
+    <a class="nav-link" href="#clickup">ClickUp</a>
+    <a class="nav-link" href="#projects">Проекты</a>
+    <a class="nav-link" href="#noShare">Не шарим</a>
+    <a class="nav-link" href="#onboard">Онбординг</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Внутренний документ · v1.0</div>
+  <h1>Регламент<br><span>шеринга</span></h1>
+  <p class="hero-sub">Что, куда и кто шарит в Граноле — чтобы контекст не терялся между клиентами, площадками и командой.<br><br>
+  Колонка <strong style="color:var(--amber)">❓ На обсудить</strong> — редактируемая. Кликни на любое поле, чтобы добавить вопрос, пометить как решённое или очистить.</p>
+</div>
+
+<div class="main">
+
+  <!-- 1. СТРУКТУРА ПАПОК -->
+  <section class="section" id="structure">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Структура папок</span>
+    </div>
+    <p class="section-desc">У каждого участника одинаковый набор папок. Вертикали и площадки явно разделены на внешние встречи (с клиентом / площадкой) и внутренние синки команды.</p>
+
+    <div class="table-wrap">
+      <table id="main-table">
+        <thead>
+          <tr>
+            <th>Папка</th>
+            <th>Что туда идёт</th>
+            <th>Кто шарит</th>
+            <th>→ Слак</th>
+            <th>❓ На обсудить</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footnote">
+      <strong>* Сделки и переговоры о новых клиентах</strong> — не идут в общие папки вертикалей. Только по отдельной договорённости с руководителем.
+    </div>
+  </section>
+
+  <!-- 2. ПРАВИЛА -->
+  <section class="section" id="rules">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Правила шеринга</span>
+    </div>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-card-title"><div class="dot" style="background:var(--blue)"></div>Кто шарит</div>
+        <ul class="rule-list">
+          <li><strong>Клиентская встреча</strong> (внешняя или внутренняя по клиенту) → аккаунт-менеджер / лид вертикали</li>
+          <li><strong>Площадочная встреча</strong> → platform specialist</li>
+          <li><strong>Внутренняя / проектная</strong> → организатор встречи</li>
+          <li><strong>Несколько участников</strong> → шарит инициатор созвона</li>
+        </ul>
+      </div>
+      <div class="rule-card">
+        <div class="rule-card-title"><div class="dot" style="background:var(--green)"></div>Когда шарить</div>
+        <div class="callout green" style="margin-top:0; margin-bottom: 12px;">
+          <div class="callout-icon">⏱</div>
+          <div><strong>Правило 24 часов</strong> — встреча зашарена в течение суток. Позже — контекст теряется, ClickUp-задачи зависают.</div>
+        </div>
+        <ul class="rule-list">
+          <li>Нужно доработать саммари (QBR, стратегия) → <strong>до 48 часов</strong></li>
+          <li>NDA-чувствительные данные → <strong>согласовать с руководителем</strong></li>
+        </ul>
+      </div>
+      <div class="rule-card" style="grid-column: 1 / -1">
+        <div class="rule-card-title"><div class="dot" style="background:var(--amber)"></div>Что должно быть в саммари</div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+          <div style="background:var(--surface2); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Контекст</div>
+            <div style="font-size:13px; color:var(--muted2);">1 строка: зачем собрались</div>
+          </div>
+          <div style="background:var(--surface2); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Решения</div>
+            <div style="font-size:13px; color:var(--muted2);">Ключевые договорённости — если были</div>
+          </div>
+          <div style="background:var(--surface2); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Action items</div>
+            <div style="font-size:13px; color:var(--muted2);">С именами ответственных</div>
+          </div>
+          <div style="background:var(--surface2); border-radius:8px; padding:12px 14px;">
+            <div style="font-size:11px; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Следующий шаг</div>
+            <div style="font-size:13px; color:var(--muted2);">Дата следующей встречи — если договорились</div>
+          </div>
+        </div>
+        <div class="callout amber" style="margin-bottom:0; margin-top:14px;">
+          <div class="callout-icon">✏️</div>
+          <div>Гранола делает черновик автоматически — только убедиться, что action items не потерялись и <strong>имена проставлены</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. СЛАК -->
+  <section class="section" id="slack">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Связка со Слаком</span>
+    </div>
+    <p class="section-desc">После шаринга — кинуть резюме в нужный канал. Шаблон сообщения:</p>
+
+    <div class="slack-msg">
+      <span class="sl">📋</span>  [Название встречи] · [Дата]<br>
+      Ключевые решения: ...<br>
+      Action items:<br>
+      &nbsp;&nbsp;<span class="sl">→</span> Имя — задача (срок)<br>
+      <span class="sl">🔗</span>  Ссылка на Граноль: [link]
+    </div>
+
+    <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;">
+      <div style="background:var(--surface); border:1px solid var(--section-clients); border-radius:8px; padding:10px 14px;">
+        <div style="font-size:10px; font-weight:700; color:#7eb8f7; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">Клиентские вертикали</div>
+        <div style="font-size:12px; color:var(--muted2); line-height:1.8;"><code>#all-gaming-clients</code><br><code>#all-igaming-clients</code><br><code>#all-entertainment-clients</code><br><code>#all-fintech-clients</code><br><code>#all-dating-clients</code><br><code>#all-e-com-clients</code><br><code>#all-services-clients</code><br><code>#all-health-fitness-clients</code></div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--section-platforms); border-radius:8px; padding:10px 14px;">
+        <div style="font-size:10px; font-weight:700; color:var(--teal); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">Площадки</div>
+        <div style="font-size:12px; color:var(--muted2); line-height:1.8;"><code>#platform-google</code><br><code>#platform-dv</code><br><code>#platform-tiktok</code><br><code>#platform-snap</code></div>
+      </div>
+      <div style="background:var(--surface); border:1px solid var(--section-internal); border-radius:8px; padding:10px 14px;">
+        <div style="font-size:10px; font-weight:700; color:var(--purple); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">Проекты / Внутренние</div>
+        <div style="font-size:12px; color:var(--muted2); line-height:1.8;"><code>#project-[name]</code><br><code>#general</code><br><code>#team-[dept]</code></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CLICKUP -->
+  <section class="section" id="clickup">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Связка с ClickUp</span>
+    </div>
+    <p class="section-desc">Action items из Граноли → задачи в ClickUp. Алгоритм после встречи:</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-step-num">Шаг 01</div>
+        <div class="flow-step-text">Проверить action items в саммари Граноли</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="flow-step-num">Шаг 02</div>
+        <div class="flow-step-text">Каждый action item = задача в ClickUp с дедлайном и ответственным</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="flow-step-num">Шаг 03</div>
+        <div class="flow-step-text">В описание задачи вставить ссылку на встречу в Граноле</div>
+      </div>
+      <div class="flow-arrow">›</div>
+      <div class="flow-step">
+        <div class="flow-step-num">Шаг 04</div>
+        <div class="flow-step-text">Зашарить встречу в Граноле + кинуть резюме в Слак</div>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-icon">⚠️</div>
+      <div>Задача у нескольких людей — один таск с несколькими ответственными, <strong>не дублировать</strong>.</div>
+    </div>
+  </section>
+
+  <!-- 5. ПРОЕКТЫ -->
+  <section class="section" id="projects">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Папки под проекты</span>
+    </div>
+    <p class="section-desc">Когда создавать отдельную проектную папку:</p>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-card-title"><div class="dot" style="background:var(--purple)"></div>Когда создавать</div>
+        <ul class="rule-list">
+          <li>Кросс-функциональный проект <strong>длиннее 2 недель</strong></li>
+          <li>Серия встреч по одной теме, касающаяся <strong>нескольких отделов</strong></li>
+          <li>Ретроспективы и воркшопы, не привязанные к клиенту</li>
+        </ul>
+      </div>
+      <div class="rule-card">
+        <div class="rule-card-title"><div class="dot" style="background:var(--amber)"></div>Как называть</div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+          <div style="font-family:monospace; font-size:13px; color:var(--muted2); background:var(--surface2); border-radius:6px; padding:6px 10px;">🚀 Launch: Performance Max</div>
+          <div style="font-family:monospace; font-size:13px; color:var(--muted2); background:var(--surface2); border-radius:6px; padding:6px 10px;">🔍 Audit: Q2 2025</div>
+          <div style="font-family:monospace; font-size:13px; color:var(--muted2); background:var(--surface2); border-radius:6px; padding:6px 10px;">⚙️ Ops: CRM Migration</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout blue" style="margin-top:16px;">
+      <div class="callout-icon">📁</div>
+      <div>Папку создаёт инициатор проекта. Если проект завершён — <strong>папку не удалять</strong>, просто перестать шарить.</div>
+    </div>
+  </section>
+
+  <!-- 6. НЕ ШАРИМ -->
+  <section class="section" id="noShare">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">Что не шарим</span>
+    </div>
+
+    <div class="yesno">
+      <div class="yesno-col">
+        <div class="yesno-header no">❌  Не шарить</div>
+        <div class="yesno-item">1-1 с руководителем</div>
+        <div class="yesno-item special">Встречи по сделкам и переговорам о новых клиентах *</div>
+        <div class="yesno-item">Встречи с NDA-материалами без согласования</div>
+        <div class="yesno-item">Личные звонки и собеседования</div>
+        <div class="yesno-item">Рекрутинговые встречи</div>
+      </div>
+      <div class="yesno-col">
+        <div class="yesno-header yes">✅  Шарить</div>
+        <div class="yesno-item">Все встречи по клиентам (внешние и внутренние)</div>
+        <div class="yesno-item">Площадочные встречи (внешние и внутренние)</div>
+        <div class="yesno-item">Внутренние синки с решениями и action items</div>
+        <div class="yesno-item">QBR и стратегические встречи с площадками</div>
+        <div class="yesno-item">Кросс-функциональные проектные встречи</div>
+      </div>
+    </div>
+    <div class="footnote" style="margin-top:16px;">
+      <strong>*</strong> Встречи по сделкам и новым клиентам — отдельная договорённость с руководителем, в общие папки вертикалей не идут.
+    </div>
+  </section>
+
+  <!-- 7. ОНБОРДИНГ -->
+  <section class="section" id="onboard">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <span class="section-title">Онбординг нового участника</span>
+    </div>
+    <p class="section-desc">Один раз при входе в команду:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Создать папки по структуре из раздела 01 — <strong>только нужные вертикали и площадки</strong>, с которыми работаешь</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Подключиться к нужным <strong>каналам Слака</strong> из раздела 03</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Попросить у лида <strong>доступ к существующим папкам</strong> по своей вертикали</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Ознакомиться с <strong>правилом 24 часов</strong> и форматом саммари (разделы 02–03)</div></div>
+    </div>
+  </section>
+
+  <p style="color:var(--muted); font-size:12px; text-align:center; padding-top:20px;">Вопросы по регламенту — в #general или к своему лиду. Документ живой — если что-то не работает, обновим.</p>
+</div>
+
+<!-- FLOATING STATUS BAR -->
+<div class="summary-bar" id="summary-bar">
+  <div class="summary-bar-dot"></div>
+  <span>Вопросов открыто: <span class="sq" id="open-count">0</span></span>
+  <div class="summary-bar-dot"></div>
+  <span>Решено: <span class="sr" id="resolved-count">0</span></span>
+</div>
+
+<script>
+const STORAGE_KEY = 'granola_questions_v2';
+
+const tableData = [
+  // group, folder, content (ext, int), owner, slack, question, id
+  { group: 'personal', label: '🔒 Личное', ext: null, int: '1-1 с руководителем, персональные созвоны', owner: 'Никто', slack: '—', q: '—', id: 'personal' },
+
+  { group: 'clients', label: '🎯 Gaming', ext: 'Созвоны с клиентом, брифы, стратегия', int: 'Синки команды по gaming-клиентам', owner: 'АМ / лид вертикали', slack: '#all-gaming-clients', q: 'Ок ли держать internal и external в одной папке, или нужны подпапки?', id: 'gaming' },
+  { group: 'clients', label: '🎯 iGaming', ext: 'Клиентские созвоны, брифы', int: 'Синки команды по igaming', owner: 'АМ / лид вертикали', slack: '#all-igaming-clients', q: '', id: 'igaming' },
+  { group: 'clients', label: '🎯 Entertainment', ext: 'Клиентские созвоны, брифы', int: 'Синки команды по entertainment', owner: 'АМ / лид вертикали', slack: '#all-entertainment-clients', q: '', id: 'entertainment' },
+  { group: 'clients', label: '🎯 Fintech', ext: 'Клиентские созвоны, брифы', int: 'Синки команды по fintech', owner: 'АМ / лид вертикали', slack: '#all-fintech-clients', q: '', id: 'fintech' },
+  { group: 'clients', label: '🎯 Dating', ext: 'Клиентские созвоны, брифы', int: 'Синки по dating', owner: 'АМ / лид вертикали', slack: '#all-dating-clients', q: '', id: 'dating' },
+  { group: 'clients', label: '🎯 E-com', ext: 'Клиентские созвоны, брифы', int: 'Синки по e-com', owner: 'АМ / лид вертикали', slack: '#all-e-com-clients', q: '', id: 'ecom' },
+  { group: 'clients', label: '🎯 Services', ext: 'Клиентские созвоны, брифы', int: 'Синки по services', owner: 'АМ / лид вертикали', slack: '#all-services-clients', q: '', id: 'services' },
+  { group: 'clients', label: '🎯 Health & Fitness', ext: 'Клиентские созвоны, брифы', int: 'Синки по health', owner: 'АМ / лид вертикали', slack: '#all-health-fitness-clients', q: '', id: 'health' },
+
+  { group: 'platforms', label: '📡 Google Ads', ext: 'QBR, брифинги, бета-тесты с командой Google', int: 'Синки platform-team по Google Ads', owner: 'Platform specialist', slack: '#platform-google', q: 'Ок ли держать внешние встречи с Google и внутренние синки в одной папке? Или нужны подпапки external / internal?', id: 'google' },
+  { group: 'platforms', label: '📡 DV360', ext: 'Встречи с DV-командой Google', int: 'Синки команды по DV', owner: 'Platform specialist', slack: '#platform-dv', q: 'Аналогичный вопрос — одна папка или две?', id: 'dv360' },
+  { group: 'platforms', label: '📡 TikTok', ext: 'Брифинги, обучения, партнёрские звонки с TikTok', int: 'Синки команды по TikTok', owner: 'Platform specialist', slack: '#platform-tiktok', q: '', id: 'tiktok' },
+  { group: 'platforms', label: '📡 Snap', ext: 'Брифинги, обучения с Snap', int: 'Синки команды по Snap', owner: 'Platform specialist', slack: '#platform-snap', q: '', id: 'snap' },
+
+  { group: 'internal', label: '📁 Проекты', ext: null, int: 'Кросс-функциональные инициативы: запуск продукта, аудит, пайплайны', owner: 'Организатор', slack: '#project-[name]', q: '', id: 'projects' },
+  { group: 'internal', label: '🏠 Внутренние', ext: null, int: 'All-hands, ретро, общекомандные синки', owner: 'Организатор', slack: '#general / #team-[dept]', q: '', id: 'internal' },
+];
+
+const groupMeta = {
+  personal: { label: '🔒  Личное', cls: 'group-personal' },
+  clients:  { label: '🎯  Клиентские вертикали', cls: 'group-clients' },
+  platforms:{ label: '📡  Площадки', cls: 'group-platforms' },
+  internal: { label: '📁  Проекты и внутренние', cls: 'group-internal' },
+};
+
+// State
+let questions = {};
+let resolved = {};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      questions = parsed.questions || {};
+      resolved = parsed.resolved || {};
+    }
+  } catch(e) {}
+  // Seed defaults
+  tableData.forEach(row => {
+    if (!(row.id in questions)) questions[row.id] = row.q;
+    if (!(row.id in resolved)) resolved[row.id] = false;
+  });
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ questions, resolved })); } catch(e) {}
+}
+
+function updateSummary() {
+  let open = 0, res = 0;
+  tableData.forEach(r => {
+    const q = questions[r.id] || '';
+    if (q && q !== '—') {
+      if (resolved[r.id]) res++;
+      else open++;
+    }
+  });
+  document.getElementById('open-count').textContent = open;
+  document.getElementById('resolved-count').textContent = res;
+}
+
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = '';
+  let lastGroup = null;
+
+  tableData.forEach(row => {
+    // Group header row
+    if (row.group !== lastGroup) {
+      lastGroup = row.group;
+      const meta = groupMeta[row.group];
+      const gr = document.createElement('tr');
+      gr.className = `group-row ${meta.cls}`;
+      const td = document.createElement('td');
+      td.colSpan = 5;
+      td.textContent = meta.label;
+      gr.appendChild(td);
+      tbody.appendChild(gr);
+    }
+
+    const tr = document.createElement('tr');
+    tr.className = 'data-row';
+
+    // Folder name
+    const td1 = document.createElement('td');
+    td1.className = 'folder-name';
+    td1.textContent = row.label;
+    tr.appendChild(td1);
+
+    // Content
+    const td2 = document.createElement('td');
+    td2.className = 'content-cell';
+    if (row.ext && row.int) {
+      td2.innerHTML = `<span class="content-line"><span class="tag-ext">внеш</span>${row.ext}</span><span class="content-line"><span class="tag-int">внутр</span>${row.int}</span>`;
+    } else {
+      td2.innerHTML = `<span class="content-line">${row.int || row.ext}</span>`;
+    }
+    tr.appendChild(td2);
+
+    // Owner
+    const td3 = document.createElement('td');
+    td3.className = 'owner-cell';
+    td3.textContent = row.owner;
+    tr.appendChild(td3);
+
+    // Slack
+    const td4 = document.createElement('td');
+    td4.className = 'slack-cell';
+    td4.textContent = row.slack;
+    tr.appendChild(td4);
+
+    // Questions cell
+    const td5 = document.createElement('td');
+    td5.className = 'questions-cell';
+    td5.appendChild(makeQuestionBlock(row.id));
+    tr.appendChild(td5);
+
+    tbody.appendChild(tr);
+  });
+
+  updateSummary();
+}
+
+function makeQuestionBlock(id) {
+  const wrap = document.createElement('div');
+  wrap.className = 'question-block';
+  wrap.dataset.id = id;
+
+  const display = document.createElement('div');
+  display.className = 'q-display';
+  display.dataset.id = id;
+
+  const editor = document.createElement('div');
+  editor.className = 'q-editor';
+
+  const textarea = document.createElement('textarea');
+  textarea.className = 'q-textarea';
+  textarea.placeholder = 'Добавить вопрос...';
+  textarea.rows = 3;
+
+  const actions = document.createElement('div');
+  actions.className = 'q-actions';
+
+  const btnSave = document.createElement('button');
+  btnSave.className = 'q-btn q-btn-save';
+  btnSave.textContent = 'Сохранить';
+
+  const btnResolve = document.createElement('button');
+  btnResolve.className = 'q-btn q-btn-resolve';
+  btnResolve.textContent = '✓ Решено';
+
+  const btnCancel = document.createElement('button');
+  btnCancel.className = 'q-btn q-btn-cancel';
+  btnCancel.textContent = 'Отмена';
+
+  const btnClear = document.createElement('button');
+  btnClear.className = 'q-btn q-btn-clear';
+  btnClear.textContent = '✕';
+
+  actions.appendChild(btnSave);
+  actions.appendChild(btnResolve);
+  actions.appendChild(btnCancel);
+  actions.appendChild(btnClear);
+  editor.appendChild(textarea);
+  editor.appendChild(actions);
+
+  wrap.appendChild(display);
+  wrap.appendChild(editor);
+
+  function refreshDisplay() {
+    const q = questions[id] || '';
+    const isResolved = resolved[id];
+    if (!q || q === '—') {
+      display.className = 'q-display empty';
+      display.textContent = '+ Добавить вопрос';
+    } else if (isResolved) {
+      display.className = 'q-display resolved';
+      display.textContent = '✓ ' + q;
+    } else {
+      display.className = 'q-display';
+      display.textContent = q;
+    }
+    updateSummary();
+  }
+
+  function openEditor() {
+    textarea.value = (questions[id] === '—' ? '' : questions[id]) || '';
+    display.style.display = 'none';
+    editor.classList.add('active');
+    textarea.focus();
+  }
+
+  function closeEditor() {
+    editor.classList.remove('active');
+    display.style.display = '';
+    refreshDisplay();
+  }
+
+  display.addEventListener('click', openEditor);
+
+  btnSave.addEventListener('click', () => {
+    questions[id] = textarea.value.trim();
+    resolved[id] = false;
+    saveState();
+    closeEditor();
+  });
+
+  btnResolve.addEventListener('click', () => {
+    questions[id] = textarea.value.trim() || questions[id] || '';
+    resolved[id] = true;
+    saveState();
+    closeEditor();
+  });
+
+  btnCancel.addEventListener('click', closeEditor);
+
+  btnClear.addEventListener('click', () => {
+    questions[id] = '';
+    resolved[id] = false;
+    saveState();
+    closeEditor();
+  });
+
+  textarea.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      questions[id] = textarea.value.trim();
+      resolved[id] = false;
+      saveState();
+      closeEditor();
+    }
+    if (e.key === 'Escape') closeEditor();
+  });
+
+  refreshDisplay();
+  return wrap;
+}
+
+// Nav active state on scroll
+function updateNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-link');
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', updateNav, { passive: true });
+
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+loadState();
+renderTable();
+</script>
+</body>
+</html>
